@@ -1,126 +1,148 @@
-import React from 'react'
-import { Link,matchPath } from 'react-router-dom'
-import {NavbarLinks} from"../../data/navbar-links"
-import { useLocation } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import authSlice from '../../slices/authSlice'
-import {FaCartShopping} from "react-icons/fa6" 
-import ProfileDropDown from '../core/Auth/ProfileDropDown'
-import { categories } from '../../services/apis'
-import { apiConnector } from '../../services/apiconnector'
-import { useState,useEffect } from 'react'
-import { IoIosArrowDropdownCircle } from 'react-icons/io'
+import { useEffect, useState } from "react"
+import { AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai"
+import { BsChevronDown } from "react-icons/bs"
+import { useSelector } from "react-redux"
+import { Link, matchPath, useLocation } from "react-router-dom"
 
-const NavBar = () => {
+import logo from "../../assets/Logo/Logo-Full-Light.png"
+import { NavbarLinks } from "../../data/navbar-links"
+import { apiConnector } from "../../services/apiconnector"
+import { categories } from "../../services/apis"
+import { ACCOUNT_TYPE } from "../../utils.js/constants"
+import ProfileDropdown from "../core/Auth/ProfileDropDown"
 
-    const {token} = useSelector((state)=> state.auth);
-    const {user} = useSelector((state)=> state.profile);
-    const {totalItems} = useSelector((state)=> state.cart);
+function Navbar() {
+  const { token } = useSelector((state) => state.auth)
+  const { user } = useSelector((state) => state.profile)
+  const { totalItems } = useSelector((state) => state.cart)
+  const location = useLocation()
 
-    const [subLinks, setSubLinks] = useState([]);
-    const [loading, setLoading] = useState(false)
+  const [subLinks, setSubLinks] = useState([])
+  const [loading, setLoading] = useState(false)
 
-    // const fetchSublinks = async()=>{
-    //     try {
-    //         const res = await apiConnector("GET", categories.CATEGORIES_API)
-    //         setSubLinks(res.data.data)
-    //       } catch (error) {
-    //         console.log("Could not fetch Categories.", error)
-    //       }
-    // }
+  const fetchSublinks = async()=> {
+        setLoading(true)
+        try {
+          const res = await apiConnector("GET", categories.CATEGORIES_API)
+          setSubLinks(res.data.data)
+        } catch (error) {
+          console.log("Could not fetch Categories.", error)
+        }
+        setLoading(false)
+  }
 
-    // useEffect(() => {
-    //     fetchSublinks();
-    // }, [])
+  useEffect(() => {
+      fetchSublinks();
+  }, [])
 
-    const location = useLocation();
-    const matchRoute = (route)=>{
-        return matchPath({path:route},location.pathname);
-    }
+  //console.log("sub links", subLinks)
+
+  const matchRoute = (route) => {
+    return matchPath({ path: route }, location.pathname)
+  }
+
   return (
-    <div className='flex h-14  items-center justify-center  border-b-[1px]  border-b-blue-200'>
-      <div className='w-8/12 flex items-center  justify-between'>
-            
-            <Link to={"/"}>
-                    <p className='font-bold text-3xl  text-white '>S.S Tutorials</p>
-              </Link>
-        
-
-
-
-            <nav>
-                <ul className='flex flex-row gap-x-6 '>
-                    {
-                        NavbarLinks.map((link,index)=>(
-                            <li key={index}>
-                                    {
-                                        link.title==="Catalog" ? (
-                                            <div className='flex items-center gap-2'>
-                                                <p>
-                                                    {link.title}
-                                                </p>
-                                                <IoIosArrowDropdownCircle></IoIosArrowDropdownCircle>
-                                                
-                                            </div>
-
-                                        ) : (
-                                            <Link to={link?.path}>
-                                                <p className= {`${matchRoute(link?.path)?"text-emerald-500	 ":"text-white"}`}>{link.title}</p>
-                                            </Link>
-                                        )
-                                    }
-                            </li>
-                        ))
-                    }
-                </ul>
-            </nav>
-
-
-            <div className='flex gap-x-4 items-center'>
-                {
-                    user && user.accountType!= "Instructor" && (
-                        <Link to="/dashboard/cart" className='relative'>
-                            <FaCartShopping className="text-2xl text-blue-100"/>
-                            {
-                                totalItems>0 && (
-                                    <span className='absolute -bottom-2 -right-2 grid h-5 w-5 place-items-center overflow-hidden rounded-full bg-blue-600 text-center text-xs font-bold text-yellow-100'>
-                                        {totalItems}
-                                    </span>
-                                )
-                            }
-                        </Link>
-                    )
-                }
-                {
-                    token===null && (
-                        <Link to="/login">
-                            <button className='border border-blue-700  bg-cyan-400 px-[12px] py-[8px] rounded-md'> 
-                                    Log in 
-                            </button>
-                        </Link>
-                    )
-                }
-                {
-                    token===null && (
-                        <Link to="/signup">
-                            <button className='border border-blue-700  bg-cyan-400 px-[12px] py-[8px] rounded-md'>
-                                    Sign Up
-                            </button>
-                        </Link>   
-                    )               
-                }
-                {
-                    token!==null && <ProfileDropDown></ProfileDropDown>
-                }
-            </div>
-
+    <div
+      className={`flex h-14 items-center justify-center border-b-[1px] border-b-blue-500 transition-all duration-200`}
+    >
+      <div className="flex w-9/12 max-w-maxContent items-center justify-between">
+        {/* Logo */}
+        <Link to="/" className="font-bold text-3xl text-teal-400">
+          <p>S.S tutorials</p>
+        </Link>
+        {/* Navigation links */}
+        <nav>
+          <ul className="flex gap-x-6 text-emerald-400 font-semibold">
+            {NavbarLinks.map((link, index) => (
+              <li key={index}>
+                {link.title === "Catalog" ? (
+                  <>
+                    <div
+                      className={`group relative flex cursor-pointer items-center gap-1 ${
+                        matchRoute("/catalog/:catalogName")
+                          ? "text-stone-300"
+                          : "text-emerald-400"
+                      }`}
+                    >
+                      <p>{link.title}</p>
+                      <BsChevronDown />
+                      <div className="invisible absolute left-[50%] top-[50%] z-[1000] flex w-[200px] translate-x-[-50%] translate-y-[3em] flex-col rounded-lg bg-white p-4 text-blue-900 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-[1.65em] group-hover:opacity-100 lg:w-[300px]">
+                        <div className="absolute left-[50%] top-0 -z-10 h-6 w-6 translate-x-[80%] translate-y-[-40%] rotate-45 select-none rounded bg-white"></div>
+                        {loading ? (
+                          <p className="text-center">Loading...</p>
+                        ) : subLinks.length ? (
+                          <>
+                            {subLinks
+                              ?.map((subLink, i) => (
+                                <Link
+                                  to={`/catalog/${subLink.name
+                                    .split(" ")
+                                    .join("-")
+                                    .toLowerCase()}`}
+                                  className="rounded-lg bg-transparent py-4 pl-4 hover:bg-blue-300"
+                                  key={i}
+                                >
+                                  <p>{subLink.name}</p>
+                                </Link>
+                              ))}
+                          </>
+                        ) : (
+                          <p className="text-center">No Courses Found</p>
+                        )}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <Link to={link?.path}>
+                    <p
+                      className={`${
+                        matchRoute(link?.path)
+                          ? "text-yellow-25"
+                          : "text-richblack-25"
+                      }`}
+                    >
+                      {link.title}
+                    </p>
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
+        {/* Login / Signup / Dashboard */}
+        <div className="items-center gap-x-4 flex ">
+          {user && user?.accountType !== ACCOUNT_TYPE.INSTRUCTOR && (
+            <Link to="/dashboard/cart" className="relative">
+              <AiOutlineShoppingCart className="text-2xl text-richblack-100" />
+              {totalItems > 0 && (
+                <span className="absolute -bottom-2 -right-2 grid h-5 w-5 place-items-center overflow-hidden rounded-full bg-richblack-600 text-center text-xs font-bold text-yellow-100">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
+          )}
+          {token === null && (
+            <Link to="/login">
+              <button className="rounded-[8px] border border-blue-500 bg-emerald-300 px-[12px] py-[8px]">
+                Log in
+              </button>
+            </Link>
+          )}
+          {token === null && (
+            <Link to="/signup">
+              <button className="rounded-[8px] border border-blue-500 bg-emerald-300 px-[12px] py-[8px] ">
+                Sign up
+              </button>
+            </Link>
+          )}
+          {token !== null && <ProfileDropdown />}
+        </div>
+        <button className="mr-4 md:hidden">
+          <AiOutlineMenu fontSize={24} fill="#AFB2BF" />
+        </button>
       </div>
-
-
     </div>
-
-
   )
 }
 
-export default NavBar
+export default Navbar
