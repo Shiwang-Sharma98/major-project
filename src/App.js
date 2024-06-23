@@ -8,6 +8,7 @@ import Signup from "../src/pages/Signup";
 import VerifyEmail from "./pages/VerifyEmail";
 import ForgotPassword from "../src/pages/ForgotPassword"
 import UpdatePassword from "../src/pages/UpdatePassword"
+import About from "./pages/About";
 
 
 function App() {
@@ -57,7 +58,16 @@ function App() {
               <UpdatePassword />
             </OpenRoute>
           }
-        />  
+        /> 
+
+        <Route
+          path="/about"
+          element={
+            
+              <About />
+            
+          }
+        />
 
 
           </Routes>

@@ -7,8 +7,20 @@ exports.contactUsController = async (req, res) => {
     const emailRes = await mailSender(
       email,
       "Your Data send successfully",
-      `your mail has been registered , all the queries would be solved soon `
+      `firstName - ${firstname} 
+      email = ${email}
+      message = ${message}
+
+      your mail has been registered , all the queries would be solved soon 
+      thank you for choosing S.S tutorials`
     )
+    const mailSendToOwner = await mailSender(
+      "shiwangsharma04@gmail.com","issue in S.S tutorials",
+      `user is facing a issue in your app , the user details and the issue faced are as follows:
+      ${firstname} ${lastname}
+      ${countrycode}  - ${phoneNo}
+      the issue is : ${message}`
+    ) 
     console.log("Email Res ", emailRes)
     return res.json({
       success: true,
