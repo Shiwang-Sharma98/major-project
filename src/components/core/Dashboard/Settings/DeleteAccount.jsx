@@ -24,14 +24,13 @@ export default function DeleteAccount() {
           <FiTrash2 className="text-3xl text-pink-200" />
         </div>
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold text-richblack-5">
+          <h2 className="text-xl font-semibold">
             Delete Account
           </h2>
           <div className="w-3/5 text-pink-25">
             <p>Would you like to delete account?</p>
             <p>
-              This account may contain Paid Courses. Deleting your account is
-              permanent and will remove all the contain associated with it.
+                  Are you sure you want to delete your account from S.S tutorials 
             </p>
           </div>
           <button
