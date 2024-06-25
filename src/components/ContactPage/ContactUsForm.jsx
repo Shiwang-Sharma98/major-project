@@ -45,7 +45,7 @@ const ContactUsForm = () => {
 
   return (
     <form
-      className="flex flex-col gap-7"
+      className="flex flex-col gap-7 mb-10 "
       onSubmit={handleSubmit(submitContactForm)}
     >
       <div className="flex gap-5 flex-row">
@@ -118,7 +118,7 @@ const ContactUsForm = () => {
             >
               {CountryCode.map((ele, i) => {
                 return (
-                  <option key={i} value={ele.code}>
+                  <option key={i} value={ele.code} className=" bg-blue-700 text-emerald-200">
                     {ele.code} -{ele.country}
                   </option>
                 )
