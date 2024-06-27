@@ -1,4 +1,4 @@
-import { ACCOUNT_TYPE } from "../utils.js/constants";
+import { ACCOUNT_TYPE } from "../utils/constants";
 export const sidebarLinks = [
   {
     id: 1,

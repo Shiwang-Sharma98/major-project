@@ -14,6 +14,8 @@ import PrivateRoute from "../src/components/core/Auth/PrivateRoute"
 import Dashboard from "../src/pages/Dashboard"
 import MyProfile from "./components/core/Dashboard/MyProfile";
 import Settings from "./components/core/Dashboard/Settings";
+import { ACCOUNT_TYPE } from "./utils/constants";
+import AddCourse from "../src/components/core/Dashboard/AddCourse"
 
 
 function App() {
@@ -95,6 +97,14 @@ function App() {
               <Route path="dashboard/my-profile" element={<MyProfile />} />
               
               <Route path="dashboard/Settings" element={<Settings />} />
+
+              {
+                user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
+                  <>
+                  <Route path="dashboard/add-course" element={<AddCourse />} />                  
+                  </>
+                )
+              }
 
         </Route>
 
