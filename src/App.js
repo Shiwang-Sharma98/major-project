@@ -16,9 +16,14 @@ import MyProfile from "./components/core/Dashboard/MyProfile";
 import Settings from "./components/core/Dashboard/Settings";
 import { ACCOUNT_TYPE } from "./utils/constants";
 import AddCourse from "../src/components/core/Dashboard/AddCourse"
+import { useSelector } from "react-redux";
+
+
 
 
 function App() {
+  
+  const { user } = useSelector((state) => state.profile)
   return (
       <div className=" w-screen min-h-screen  bg-blue-800 flex flex-col ">
           <NavBar></NavBar>

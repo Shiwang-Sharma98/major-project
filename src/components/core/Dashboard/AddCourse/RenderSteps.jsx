@@ -36,12 +36,12 @@ export default function RenderSteps() {
               <button
                 className={`grid cursor-default aspect-square w-[34px] place-items-center rounded-full border-[1px] ${
                   step === item.id
-                    ? "border-yellow-50 bg-yellow-900 text-yellow-50"
-                    : "border-richblack-700 bg-richblack-800 text-richblack-300"
-                } ${step > item.id && "bg-yellow-50 text-yellow-50"}} `}
+                    ? "border-yellow-50 bg-emerald-400 text-black"
+                    : "border-blue-400 bg-blue-500"
+                } ${step > item.id && "text-emerald-400"}} `}
               >
                 {step > item.id ? (
-                  <FaCheck className="font-bold text-richblack-900" />
+                  <FaCheck className="font-bold text-black" />
                 ) : (
                   item.id
                 )}
@@ -52,7 +52,7 @@ export default function RenderSteps() {
               <>
                 <div
                   className={`h-[calc(34px/2)] w-[33%]  border-dashed border-b-2 ${
-                  step > item.id  ? "border-yellow-50" : "border-richblack-500"
+                  step > item.id  ? "border-emerald-500" : ""
                 } `}
                 ></div>
               </>
@@ -61,17 +61,17 @@ export default function RenderSteps() {
         ))}
       </div>
 
-      <div className="relative mb-16 flex w-full select-none justify-between">
+      <div className="relative mb-16 flex w-full justify-between">
         {steps.map((item) => (
           <>
             <div
-              className="flex min-w-[130px] flex-col items-center gap-y-2"
+              className="flex min-w-[90px] flex-col items-center gap-y-2"
               key={item.id}
             >
               
               <p
                 className={`text-sm ${
-                  step >= item.id ? "text-richblack-5" : "text-richblack-500"
+                  step >= item.id ? "text-emerald-500 font-bold" : "text-white"
                 }`}
               >
                 {item.title}
