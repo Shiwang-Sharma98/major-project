@@ -124,11 +124,11 @@ export default function SubSectionModal({
   }
 
   return (
-    <div className="fixed inset-0 z-[1000] !mt-0 grid h-screen w-screen place-items-center overflow-auto bg-white bg-opacity-10 backdrop-blur-sm">
-      <div className="my-10 w-11/12 max-w-[700px] rounded-lg border border-richblack-400 bg-richblack-800">
+    <div className="fixed inset-0 z-[1000]  grid h-screen w-screen place-items-center overflow-auto bg-white bg-opacity-10 backdrop-blur-sm">
+      <div className="my-10 w-11/12 max-w-[700px] rounded-lg border bg-blue-700">
         {/* Modal Header */}
-        <div className="flex items-center justify-between rounded-t-lg bg-richblack-700 p-5">
-          <p className="text-xl font-semibold text-richblack-5">
+        <div className="flex items-center justify-between rounded-t-lg  p-5">
+          <p className="text-3xl font-semibold text-emerald-300">
             {view && "Viewing"} {add && "Adding"} {edit && "Editing"} Lecture
           </p>
           <button onClick={() => (!loading ? setModalData(null) : {})}>
@@ -153,7 +153,7 @@ export default function SubSectionModal({
           />
           {/* Lecture Title */}
           <div className="flex flex-col space-y-2">
-            <label className="text-sm text-richblack-5" htmlFor="lectureTitle">
+            <label className="mb-1 text-[0.875rem] leading-[1.375rem] text-emerald-300" htmlFor="lectureTitle">
               Lecture Title {!view && <sup className="text-pink-200">*</sup>}
             </label>
             <input
@@ -161,7 +161,7 @@ export default function SubSectionModal({
               id="lectureTitle"
               placeholder="Enter Lecture Title"
               {...register("lectureTitle", { required: true })}
-              className="form-style w-full"
+              className="w-full rounded-[0.5rem] bg-blue-700 p-[12px]  text-emerald-200 border-2 border-sky-200"
             />
             {errors.lectureTitle && (
               <span className="ml-2 text-xs tracking-wide text-pink-200">
@@ -171,7 +171,7 @@ export default function SubSectionModal({
           </div>
           {/* Lecture Description */}
           <div className="flex flex-col space-y-2">
-            <label className="text-sm text-richblack-5" htmlFor="lectureDesc">
+            <label className="mb-1 text-[0.875rem] leading-[1.375rem] text-emerald-300" htmlFor="lectureDesc">
               Lecture Description{" "}
               {!view && <sup className="text-pink-200">*</sup>}
             </label>
@@ -180,7 +180,7 @@ export default function SubSectionModal({
               id="lectureDesc"
               placeholder="Enter Lecture Description"
               {...register("lectureDesc", { required: true })}
-              className="form-style resize-x-none min-h-[130px] w-full"
+              className="rounded-[0.5rem] bg-blue-700 p-[12px]  text-emerald-200 resize-x-none min-h-[130px] w-full border-2 border-sky-200"
             />
             {errors.lectureDesc && (
               <span className="ml-2 text-xs tracking-wide text-pink-200">

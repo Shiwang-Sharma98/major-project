@@ -38,7 +38,7 @@ export default function RenderSteps() {
                   step === item.id
                     ? "border-yellow-50 bg-emerald-400 text-black"
                     : "border-blue-400 bg-blue-500"
-                } ${step > item.id && "text-emerald-400"}} `}
+                } ${step > item.id && "text-emerald-400 "}} `}
               >
                 {step > item.id ? (
                   <FaCheck className="font-bold text-black" />

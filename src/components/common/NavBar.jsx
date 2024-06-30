@@ -97,8 +97,8 @@ function Navbar() {
                     <p
                       className={`${
                         matchRoute(link?.path)
-                          ? "text-yellow-25"
-                          : "text-richblack-25"
+                          ? "text-white"
+                          : ""
                       }`}
                     >
                       {link.title}
